@@ -13,6 +13,7 @@ import re
 from tkinter import ttk
 from tkinter import HORIZONTAL
 
+#Scrape ruten
 def rutenAPI_Scraper(keyword, n_items):
     proc_array = []
     url1 = f'https://rtapi.ruten.com.tw/api/search/v3/index.php/core/prod?q={keyword}&type=direct&sort=rnk%2Fdc&offset=1&limit={n_items}&_callback=jsonpcb_CoreProd'
@@ -64,7 +65,28 @@ def rutenAPI_Scraper(keyword, n_items):
         proc_array.append(output)
     return proc_array
     """
+
+#Scrape pchome
+def pchomeAPI_Scraper(keyword, n_items):
+    proc_array = []
+    url1 = f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={keyword}&page=1&sortParm=rnk&sortOrder=dc'
+    #print(url1)
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    r = requests.get(url1,headers=headers)
+    api1_data = json.loads(r.text)
     
+    for i in range(n_items):
+        name = api1_data['prods'][i]['name']
+        price = api1_data['prods'][i]['price']
+        
+        output = name + ':' + str(price)
+        proc_array.append(output)
+    return proc_array
+
+#pchomeAPI_Scraper(keyword = 'switch', n_items = 10)    
+
+
+#Scrape shopee
 def shopeeAPI_Scraper(keyword, n_items):
     proc_array = []
     url1 = f'https://shopee.tw/api/v2/search_items/?by=sales&page=0&keyword={keyword}'
@@ -87,6 +109,7 @@ def shopeeAPI_Scraper(keyword, n_items):
 
 #shopeeAPI_Scraper(keyword = 'switch', n_items = 10)
 
+#ruten ordered
 def ruten_order(keyword, n_times):
     ruten_array = rutenAPI_Scraper(keyword, n_times)
     #pchome_array = pchomeAPI_Scraper(keyword, n_times)
@@ -128,24 +151,7 @@ def ruten_order(keyword, n_times):
 
 #ruten_order('switch',  6)
 
-def pchomeAPI_Scraper(keyword, n_items):
-    proc_array = []
-    url1 = f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={keyword}&page=1&sortParm=rnk&sortOrder=dc'
-    #print(url1)
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    r = requests.get(url1,headers=headers)
-    api1_data = json.loads(r.text)
-    
-    for i in range(n_items):
-        name = api1_data['prods'][i]['name']
-        price = api1_data['prods'][i]['price']
-        
-        output = name + ':' + str(price)
-        proc_array.append(output)
-    return proc_array
-
-#pchomeAPI_Scraper(keyword = 'switch', n_items = 10)
-
+#shopee ordered
 def shopee_order(keyword, n_times):
     shopee_array = shopeeAPI_Scraper(keyword, n_times)
     #pchome_array = pchomeAPI_Scraper(keyword, n_times)
@@ -187,6 +193,8 @@ def shopee_order(keyword, n_times):
 
 #shopee_order('switch',  6)
 
+
+#pchome ordered
 def pchome_order(keyword, n_times):
     #shopee_array = shopeeAPI_Scraper(keyword, n_times)
     pchome_array = pchomeAPI_Scraper(keyword, n_times)
@@ -227,6 +235,7 @@ def pchome_order(keyword, n_times):
 
 #pchome_order("switch", 5)
 
+#compare three online shopstore
 def combine_compare(keyword, n_times, model):
     #n_times = int(str_n_times)
     #model = int(str_model)
@@ -290,7 +299,6 @@ app.title('Welcome to easy shop')
 app.geometry('600x600')
 
 #image setting
-
 def configitem():
     dict = {
         'imgA':tk.PhotoImage(file='welcome.gif'),
