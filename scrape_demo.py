@@ -85,7 +85,7 @@ def shopeeAPI_Scraper(keyword, n_items):
         proc_array.append(output)
     return proc_array
 
-#shopeeAPI_Scraper(keyword = '筆電', n_items = 10)
+#shopeeAPI_Scraper(keyword = 'switch', n_items = 10)
 
 def ruten_order(keyword, n_times):
     ruten_array = rutenAPI_Scraper(keyword, n_times)
@@ -126,7 +126,7 @@ def ruten_order(keyword, n_times):
     #print(shopee_item)
     
 
-#ruten_order('筆電',  6)
+#ruten_order('switch',  6)
 
 def pchomeAPI_Scraper(keyword, n_items):
     proc_array = []
@@ -185,7 +185,7 @@ def shopee_order(keyword, n_times):
     #print(shopee_item)
     
 
-#shopee_order('筆電',  6)
+#shopee_order('switch',  6)
 
 def pchome_order(keyword, n_times):
     #shopee_array = shopeeAPI_Scraper(keyword, n_times)
@@ -225,7 +225,7 @@ def pchome_order(keyword, n_times):
     result = zip(pchome_item,pchome_price)
     return list(result)
 
-#pchome_order("筆電", 5)
+#pchome_order("switch", 5)
 
 def combine_compare(keyword, n_times, model):
     #n_times = int(str_n_times)
@@ -363,9 +363,9 @@ resultLabel = tk.Label(app, bg='Silver', textvariable=resultString)
 resultLabel.grid(column=2, row=8, padx=10, sticky=tk.W)
 
 """
-resultString = tk.StringVar()    # 这时文字变量储存器
+resultString = tk.StringVar()    
 l = tk.Label(app, 
-    textvariable=resultString,   # 使用 textvariable 替换 text, 因为这个可以变化
+    textvariable=resultString,   
     bg='GhostWhite', font=('Arial', 12), width=120, height=30)
 l.pack() 
 """
